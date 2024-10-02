@@ -1,4 +1,3 @@
-import 'package:feiersternchen_verwaltung/app/modules/home/views/child_register.dart';
 import 'package:feiersternchen_verwaltung/app/modules/home/views/chilld_view.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +9,9 @@ class HomeView extends GetView<HomeController> {
   const HomeView({super.key});
   @override
   Widget build(BuildContext context) {
+    Get.put(HomeController());
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         centerTitle: true,
       ),
@@ -18,12 +19,17 @@ class HomeView extends GetView<HomeController> {
         child: Column(
           children: [
             Image.network(
-                'https://feiersternchen.de/wp-content/uploads/2024/02/weblogo-lang.png'),
+              'https://feiersternchen.de/wp-content/uploads/2024/02/Logo-Last-BG.png',
+              width: 250,
+            ),
             const Text(
               'Bitte wählen Sie Ihre Konto aus !',
               style: TextStyle(fontSize: 30),
             ),
             //Select the Worker
+            SizedBox(
+              height: 50,
+            ),
             Container(
               child: Row(
                 children: [

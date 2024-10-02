@@ -1,6 +1,9 @@
 import 'package:feiersternchen_verwaltung/app/modules/home/views/chilld_view.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:signature/signature.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeController extends GetxController {
   TextEditingController name = TextEditingController();
@@ -21,12 +24,31 @@ class HomeController extends GetxController {
   RxList<Childs> childs = <Childs>[].obs;
   late int pin;
 
+  RxList<Childs> abgemeledetekinder = <Childs>[].obs;
+
+  Future<void> launchCustomUrl(Uri url) async {
+    if (!await launchUrl(url)) {
+      throw Exception('Could not launch $url');
+    }
+  }
+
+  final SignatureController signaturecontroller = SignatureController(
+    penStrokeWidth: 5,
+    penColor: Colors.black,
+  );
+
   checkUser(int pin) {
     if (pin == 1234) {
       Get.to(() => const ChildListView());
     } else {
       Get.snackbar('Fehler', 'Falscher Pin');
     }
+  }
+
+  @override
+  void dispose() {
+    signaturecontroller.dispose();
+    super.dispose();
   }
 
   @override
@@ -59,6 +81,7 @@ class Childs {
   String personalid;
   String betreuer;
   String abholzeit;
+  String anmeldezeit;
 
   Childs({
     required this.name,
@@ -76,5 +99,6 @@ class Childs {
     required this.personalid,
     required this.betreuer,
     required this.abholzeit,
+    required this.anmeldezeit,
   });
 }
